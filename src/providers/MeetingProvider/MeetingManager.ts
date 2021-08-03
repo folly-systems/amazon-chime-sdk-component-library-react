@@ -55,6 +55,8 @@ export class MeetingManager implements AudioVideoObserver {
 
   meetingRegion: string | null = null;
 
+  deviceController: DefaultDeviceController;
+
   getAttendee?: (
     chimeAttendeeId: string,
     externalUserId?: string
@@ -116,7 +118,7 @@ export class MeetingManager implements AudioVideoObserver {
 
   logger: Logger | undefined;
 
-  constructor(config: ManagerConfig) {
+  constructor(config: ManagerConfig, deviceController?: DefaultDeviceController) {
     if (config.simulcastEnabled) {
       this.simulcastEnabled = config.simulcastEnabled;
     }
@@ -132,6 +134,10 @@ export class MeetingManager implements AudioVideoObserver {
 
     if (config.videoDownlinkBandwidthPolicy) {
       this.videoDownlinkBandwidthPolicy = config.videoDownlinkBandwidthPolicy;
+    }
+
+    if (deviceController) {
+      this.deviceController = deviceController;
     }
   }
 
@@ -221,11 +227,14 @@ export class MeetingManager implements AudioVideoObserver {
       configuration.videoDownlinkBandwidthPolicy = this.videoDownlinkBandwidthPolicy;
     }
 
-    const deviceController = new DefaultDeviceController(logger);
+    if (!this.deviceController) {
+      this.deviceController = new DefaultDeviceController(logger)
+    }
+
     this.meetingSession = new DefaultMeetingSession(
       configuration,
       logger,
-      deviceController,
+      this.deviceController,
       this.eventReporter
     );
 
