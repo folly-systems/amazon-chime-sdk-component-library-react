@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 
 import { useAudioVideo } from '../../providers/AudioVideoProvider';
 
-export type VideoQuality = '360p' | '540p' | '720p';
+export type VideoQuality = string;
 
 export function useSelectVideoQuality() {
   const audioVideo = useAudioVideo();
@@ -19,6 +19,9 @@ export function useSelectVideoQuality() {
       console.log(`Selecting video quality: ${quality}`);
 
       switch (quality) {
+        case '270p':
+          audioVideo.chooseVideoInputQuality(480, 270, 15, 600);
+          break;
         case '360p':
           audioVideo.chooseVideoInputQuality(640, 360, 15, 600);
           break;
@@ -29,7 +32,13 @@ export function useSelectVideoQuality() {
           audioVideo.chooseVideoInputQuality(1280, 720, 15, 1400);
           break;
         default:
-          console.log(`Unsupported video quality: ${quality}`);
+          try {
+            const val = +quality.slice(0, -1);
+            audioVideo.chooseVideoInputQuality(1.777778 * val, val, 15, 600);
+            console.log(`Custom video quality: ${quality}`);
+          } catch (err) {
+            console.log(`Unsupported video quality: ${quality}`);
+          }
       }
     },
     [audioVideo]
