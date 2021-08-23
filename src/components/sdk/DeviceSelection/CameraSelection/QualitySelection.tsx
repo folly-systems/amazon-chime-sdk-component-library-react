@@ -18,10 +18,9 @@ interface Props {
   labelForUnselected?: string;
 }
 
-
 export const QualitySelection: React.FC<Props> = ({
   label = 'Video quality',
-  labelForUnselected = 'Select video quality'
+  labelForUnselected = 'Select video quality',
 }) => {
   const selectVideoQuality = useSelectVideoQuality();
   const [videoQuality, setVideoQuality] = useState('unselected');
@@ -41,6 +40,10 @@ export const QualitySelection: React.FC<Props> = ({
     {
       label: VIDEO_INPUT_QUALITY['360p'],
       value: '360p',
+    },
+    {
+      label: VIDEO_INPUT_QUALITY['270p'],
+      value: '270p',
     },
   ];
 

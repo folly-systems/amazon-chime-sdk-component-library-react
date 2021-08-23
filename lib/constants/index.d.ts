@@ -6,6 +6,7 @@ export declare const KEY_CODES: {
     ARROW_DOWN: number;
 };
 export declare const VIDEO_INPUT_QUALITY: {
+    '270p': string;
     '360p': string;
     '540p': string;
     '720p': string;
