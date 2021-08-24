@@ -45,6 +45,10 @@ export const QualitySelection: React.FC<Props> = ({
       label: VIDEO_INPUT_QUALITY['270p'],
       value: '270p',
     },
+    {
+      label: VIDEO_INPUT_QUALITY['180p'],
+      value: '180p',
+    },
   ];
 
   async function selectQuality(e: ChangeEvent<HTMLSelectElement>) {

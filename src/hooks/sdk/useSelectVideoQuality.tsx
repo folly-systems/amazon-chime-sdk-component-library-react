@@ -19,6 +19,9 @@ export function useSelectVideoQuality() {
       console.log(`Selecting video quality: ${quality}`);
 
       switch (quality) {
+        case '180p':
+          audioVideo.chooseVideoInputQuality(320, 180, 15, 300);
+          break;
         case '270p':
           audioVideo.chooseVideoInputQuality(480, 270, 15, 600);
           break;
