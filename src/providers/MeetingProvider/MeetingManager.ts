@@ -372,7 +372,7 @@ export class MeetingManager implements AudioVideoObserver {
     };
 
     this.audioVideo?.subscribeToActiveSpeakerDetector(
-      new DefaultActiveSpeakerPolicy(),
+      new DefaultActiveSpeakerPolicy({speakerWeight:0.5}),
       this.activeSpeakerListener
     );
   }
